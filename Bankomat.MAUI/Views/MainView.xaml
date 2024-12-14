@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Bankomat.MAUI.ViewModels"
+             x:Class="Bankomat.MAUI.Views.MainView"
+             x:DataType="viewModels:MainViewModel">
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*,auto"
+              RowDefinitions="*"
+              Margin="5"
+              ColumnSpacing="10">
+            <Border Grid.Column="0"
+                    Grid.Row="0">
+                <VerticalStackLayout Spacing="30">
+                    <Label Text="Witamy w sieci bankomatów u Janusza"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontSize="Header"/>
+                    <Label Text="Przed pierwszą instalacją urządzenia skonfiguruj je w panelu administracyjnym."
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Border WidthRequest="700"
+                            HeightRequest="500">
+                        <Label Text="Miejsce na twoją reklame"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               FontSize="Medium" />
+                    </Border>
+                </VerticalStackLayout>
+                
+            </Border>
+            <VerticalStackLayout Grid.Column="1"
+                                 Grid.Row="0"
+                                 Spacing="10">
+                <Button Text="Włóż kartę" />
+                <Button Text="Konto"
+                        IsEnabled="{x:Binding IsThereIsACard}"/>
+                <Button Text="Zakończ" />
+                <Button Text="Panel administracyjny"
+                        Command="{Binding GoToAdminPageCommand}"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

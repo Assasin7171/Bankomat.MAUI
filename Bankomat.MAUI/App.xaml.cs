@@ -1,0 +1,18 @@
+﻿namespace Bankomat.MAUI;
+
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        var window = new Window(new AppShell());
+        window.Height = 720;
+        window.Width = 1280;
+
+        return window;
+    }
+}
