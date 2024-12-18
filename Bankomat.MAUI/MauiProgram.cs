@@ -1,4 +1,5 @@
-﻿using Bankomat.MAUI.ViewModels;
+﻿using Bankomat.MAUI.Services;
+using Bankomat.MAUI.ViewModels;
 using Bankomat.MAUI.Views;
 using Microsoft.Extensions.Logging;
 
@@ -26,6 +27,8 @@ public static class MauiProgram
         {
             BindingContext = s.GetRequiredService<MainViewModel>(),
         });
+
+        builder.Services.AddSingleton<AuthService>();
 
         return builder.Build();
     }

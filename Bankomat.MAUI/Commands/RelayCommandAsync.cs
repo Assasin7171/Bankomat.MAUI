@@ -27,20 +27,20 @@ public class RelayCommandAsync : ICommand
     //asynchroniczne wykonanie komendy
     public async void Execute(object? parameter)
     {
-        if(CanExecute(parameter))
+        if (!CanExecute(parameter))
             return;
 
         try
         {
             _isExecuting = true;
-            RaiseCanExecuteChanged();
             await _executeAsync(parameter);
         }
         finally
         {
             _isExecuting = false;
-            RaiseCanExecuteChanged();
         }
+
+        RaiseCanExecuteChanged();
     }
 
     public void RaiseCanExecuteChanged()

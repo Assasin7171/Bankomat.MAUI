@@ -6,7 +6,7 @@ namespace Bankomat.MAUI.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public ICommand GoToAdminPageCommand { get; set; }
+    public ICommand GoToAdminPageCommand { get; }
 
     private bool _isThereIsACard = false;
     public bool IsThereIsACard
@@ -23,7 +23,7 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        GoToAdminPageCommand = new RelayCommandAsync(async param => await GoToAdminPanelView());
+        GoToAdminPageCommand = new RelayCommandAsync(async o => await GoToAdminPanelView());
     }
 
     private async Task GoToAdminPanelView()
