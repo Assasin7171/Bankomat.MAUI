@@ -4,6 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bankomat.MAUI.Views.AdminPanelView">
     <ContentPage.Content>
-        <Label Text="Panel admina..."/>
+        <Grid RowDefinitions="*,auto">
+            <VerticalStackLayout Grid.Row="0">
+                <Grid ColumnDefinitions="auto,*"
+                      RowDefinitions="*,*,*,*">
+                    <CheckBox Grid.Column="0"
+                              Grid.Row="0"
+                              IsChecked="True"/>
+                    <Label Text="Visa"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           VerticalOptions="Center"/>   
+                    
+                    <CheckBox Grid.Column="0"
+                              Grid.Row="1"/>
+                    <Label Text="Mastercard"
+                           Grid.Column="1"
+                           VerticalOptions="Center"
+                           Grid.Row="1"/>
+                </Grid>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1">
+                <Button Text="Zapisz konfiguracje"/>
+            </VerticalStackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

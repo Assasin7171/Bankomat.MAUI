@@ -11,19 +11,12 @@
     x:DataType="local:AppShell">
 
     <TabBar>
-        <Tab Title="Loading page">
-            <ShellContent ContentTemplate="{DataTemplate views:LoadingPage}"
-                          Shell.NavBarIsVisible="True"/>
-        </Tab>
         <Tab Title="Main page">
-            <ShellContent ContentTemplate="{DataTemplate views:MainView}"
-                          Shell.NavBarIsVisible="True"/>
+            <ShellContent ContentTemplate="{DataTemplate views:MainView}"/>
         </Tab>
         <Tab Title="Admin page">
-            <ShellContent ContentTemplate="{DataTemplate views:AdminPanelView}"
-                          Shell.NavBarIsVisible="True"/>
+            <ShellContent ContentTemplate="{DataTemplate views:AdminPanelView}"/>
         </Tab>
-
     </TabBar>
 
 

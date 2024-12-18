@@ -6,20 +6,32 @@
              x:Class="Bankomat.MAUI.Views.MainView"
              x:DataType="viewModels:MainViewModel">
     <ContentPage.Content>
-        <Grid ColumnDefinitions="*,auto"
-              RowDefinitions="*"
-              Margin="5"
-              ColumnSpacing="10">
-            <Border Grid.Column="0"
-                    Grid.Row="0">
-                <VerticalStackLayout Spacing="30">
-                    <Label Text="Witamy w sieci bankomatów u Janusza"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"
-                           FontSize="Header"/>
-                    <Label Text="Przed pierwszą instalacją urządzenia skonfiguruj je w panelu administracyjnym."
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
+        <Border Margin="10">
+            <Grid>
+                <!-- first run only -->
+                <Grid IsVisible="{Binding IsFirstRun}">
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="20">
+                        <Label Text="Witamy w sieci bankomatów u Janusza"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="Header" />
+                        <Label Text="Przed pierwszą instalacją urządzenia skonfiguruj je w panelu administracyjnym."
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
+                        <Button Text="Panel Administracyjny"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" 
+                                Command="{Binding GoToAdminPageCommand}"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <!-- first run only end -->
+
+                <Grid ColumnDefinitions="*,auto"
+                      RowDefinitions="*"
+                      IsVisible="False"
+                      ColumnSpacing="10">
                     <Border WidthRequest="700"
                             HeightRequest="500">
                         <Label Text="Miejsce na twoją reklame"
@@ -28,19 +40,20 @@
                                FontAttributes="Bold"
                                FontSize="Medium" />
                     </Border>
-                </VerticalStackLayout>
-                
-            </Border>
-            <VerticalStackLayout Grid.Column="1"
-                                 Grid.Row="0"
-                                 Spacing="10">
-                <Button Text="Włóż kartę" />
-                <Button Text="Konto"
-                        IsEnabled="{x:Binding IsThereIsACard}"/>
-                <Button Text="Zakończ" />
-                <Button Text="Panel administracyjny"
-                        Command="{Binding GoToAdminPageCommand}"/>
-            </VerticalStackLayout>
-        </Grid>
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         Grid.Row="0"
+                                         Spacing="10">
+                        <Button Text="Włóż kartę" />
+                        <Button Text="Konto"
+                                IsEnabled="{Binding IsThereIsACard}" />
+                        <Button Text="Zakończ" />
+                        <Button Text="Panel administracyjny"
+                                Command="{Binding GoToAdminPageCommand}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+        </Border>
+
     </ContentPage.Content>
 </ContentPage>
