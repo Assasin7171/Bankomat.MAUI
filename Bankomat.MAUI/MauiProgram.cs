@@ -22,10 +22,17 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+        // MainView
         builder.Services.AddSingleton<MainViewModel>();
-        builder.Services.AddSingleton<MainView>(s=> new MainView()
+        builder.Services.AddSingleton<MainView>(s => new MainView()
         {
             BindingContext = s.GetRequiredService<MainViewModel>(),
+        });
+        // AdminPanelView
+        builder.Services.AddSingleton<AdminPanelViewModel>();
+        builder.Services.AddSingleton<AdminPanelView>(s => new AdminPanelView()
+        {
+            BindingContext = s.GetRequiredService<AdminPanelViewModel>(),
         });
 
         builder.Services.AddSingleton<AuthService>();

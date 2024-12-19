@@ -1,21 +1,18 @@
 ﻿using System.Windows.Input;
 using Bankomat.MAUI.Commands;
+using Bankomat.MAUI.Services;
 using Bankomat.MAUI.Views;
 
 namespace Bankomat.MAUI.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
+    private AuthService AuthService { get; }
     public ICommand GoToAdminPageCommand { get; }
     public ICommand InsertCardCommand { get; }
-
-    private bool _isFirstRun = true;
-
-    public bool IsFirstRun
-    {
-        get => _isFirstRun;
-        set => SetField(ref _isFirstRun, value);
-    }
+    
+    public bool IsFirstRun => AuthService.IsFirstRun;
+    public bool DisplayLayout => !IsFirstRun;
 
     private bool _isThereIsACard = false;
     public bool IsThereIsACard
@@ -30,8 +27,9 @@ public class MainViewModel : ViewModelBase
         }
     }
 
-    public MainViewModel()
+    public MainViewModel(AuthService authService)
     {
+        AuthService = authService;
         GoToAdminPageCommand = new RelayCommandAsync(async o => await GoToAdminPanelView());
         InsertCardCommand = new RelayCommand(o => InsertCardToAtm());
     }

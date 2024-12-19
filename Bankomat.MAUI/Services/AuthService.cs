@@ -2,17 +2,55 @@
 
 public class AuthService
 {
-    private bool _isFirstRun = true;
-    
-    public async Task<bool> IsFirstRunAsync()
-    {
-        await Task.Delay(2000);
+    public bool IsFirstRun { get; private set; }
 
-        return _isFirstRun;
+    public AuthService()
+    {
+        Task.Run(async () => { await Init(); });
     }
 
-    public void SetFirstRun()
+    private async Task Init()
     {
-        _isFirstRun = false;
+        try
+        {
+            var isFirstRun = await SecureStorage.Default.GetAsync("IsFirstRun");
+            if (isFirstRun != null)
+            {
+                if (isFirstRun == "true")
+                {
+                    IsFirstRun = true;
+                }
+                else if (isFirstRun == "false")
+                {
+                    IsFirstRun = false;
+                }
+            }
+            else
+            {
+                IsFirstRun = true;
+                await SecureStorage.Default.SetAsync("IsFirstRun", "true");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"SecureStorage error: {e.Message}");
+            Console.WriteLine($"Stack trace: {e.StackTrace}");
+            // Opcjonalnie przeanalizuj rodzaj wyjątku:
+            if (e is UnauthorizedAccessException)
+            {
+                Console.WriteLine("Brak uprawnień do korzystania z SecureStorage.");
+            }
+            else
+            {
+                Console.WriteLine("Inny błąd związany z SecureStorage.");
+            }
+            throw; 
+        }
+    }
+
+    public async Task SwitchIsFirstRunToFalse()
+    {
+        await SecureStorage.Default.SetAsync("IsFirstRun", "false");
+        IsFirstRun = false;
     }
 }

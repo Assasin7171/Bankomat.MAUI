@@ -30,7 +30,7 @@
 
                 <Grid ColumnDefinitions="*,auto"
                       RowDefinitions="*"
-                      IsVisible="False"
+                      IsVisible="{Binding DisplayLayout}"
                       ColumnSpacing="10">
                     <Border WidthRequest="700"
                             HeightRequest="500">
