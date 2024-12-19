@@ -9,7 +9,8 @@
         <Border Margin="10">
             <Grid>
                 <!-- first run only -->
-                <Grid IsVisible="{Binding IsFirstRun}">
+                <Grid IsVisible="{Binding IsFirstRun}"
+                      IsEnabled="{Binding IsFirstRun}">
                     <VerticalStackLayout VerticalOptions="Center"
                                          HorizontalOptions="Center"
                                          Spacing="20">
@@ -31,6 +32,7 @@
                 <Grid ColumnDefinitions="*,auto"
                       RowDefinitions="*"
                       IsVisible="{Binding DisplayLayout}"
+                      IsEnabled="{Binding DisplayLayout}"
                       ColumnSpacing="10">
                     <Border WidthRequest="700"
                             HeightRequest="500">

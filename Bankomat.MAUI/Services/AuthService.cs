@@ -2,55 +2,51 @@
 
 public class AuthService
 {
-    public bool IsFirstRun { get; private set; }
-
     public AuthService()
     {
-        Task.Run(async () => { await Init(); });
+        //SecureStorage.Default.RemoveAll();
+        Task.Run(async () =>
+        {
+            await Init();
+        });
     }
 
-    private async Task Init()
+    public async Task Init()
     {
         try
         {
-            var isFirstRun = await SecureStorage.Default.GetAsync("IsFirstRun");
-            if (isFirstRun != null)
+            var firstRun = await SecureStorage.Default.GetAsync("IsFirstRun");
+            if (firstRun == null)
             {
-                if (isFirstRun == "true")
-                {
-                    IsFirstRun = true;
-                }
-                else if (isFirstRun == "false")
-                {
-                    IsFirstRun = false;
-                }
-            }
-            else
-            {
-                IsFirstRun = true;
                 await SecureStorage.Default.SetAsync("IsFirstRun", "true");
             }
         }
         catch (Exception e)
         {
-            Console.WriteLine($"SecureStorage error: {e.Message}");
-            Console.WriteLine($"Stack trace: {e.StackTrace}");
-            // Opcjonalnie przeanalizuj rodzaj wyjątku:
-            if (e is UnauthorizedAccessException)
-            {
-                Console.WriteLine("Brak uprawnień do korzystania z SecureStorage.");
-            }
-            else
-            {
-                Console.WriteLine("Inny błąd związany z SecureStorage.");
-            }
-            throw; 
+            Console.WriteLine(e.Message.ToString());
         }
     }
 
-    public async Task SwitchIsFirstRunToFalse()
+    public async Task<bool> CheckIfFirstRunAsync()
+    {
+        var isFirstRun = await SecureStorage.Default.GetAsync("IsFirstRun");
+        if (isFirstRun != null)
+        {
+            if (isFirstRun == "true")
+            {
+                return true;
+            }
+            else if (isFirstRun == "false")
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public async Task ChangeFirstRunToFalse()
     {
         await SecureStorage.Default.SetAsync("IsFirstRun", "false");
-        IsFirstRun = false;
     }
 }

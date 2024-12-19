@@ -22,6 +22,8 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+        builder.Services.AddSingleton<AuthService>();
+
         // MainView
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<MainView>(s => new MainView()
@@ -34,8 +36,6 @@ public static class MauiProgram
         {
             BindingContext = s.GetRequiredService<AdminPanelViewModel>(),
         });
-
-        builder.Services.AddSingleton<AuthService>();
 
         return builder.Build();
     }
